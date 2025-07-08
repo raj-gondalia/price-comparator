@@ -27,15 +27,11 @@ cd price_comparator
 Create a `.env` file in the project root with the following content:
 
 ```ini
-# .env example
+# .env.example
 OXYLABS_USERNAME=your_oxylabs_username
 OXYLABS_PASSWORD=your_oxylabs_password
 OPENAI_API_KEY=your_openai_api_key
 ```
-
-- **OXYLABS_USERNAME**: Your Oxylabs API username
-- **OXYLABS_PASSWORD**: Your Oxylabs API password
-- **OPENAI_API_KEY**: Your OpenAI API key
 
 ### 3. Install dependencies
 ```bash
