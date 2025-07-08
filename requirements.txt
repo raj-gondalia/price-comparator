@@ -3,3 +3,4 @@ uvicorn==0.35.0
 openai==1.93.1
 dotenv==0.9.9
 requests==2.32.4
+pycountry==24.6.1
