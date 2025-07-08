@@ -118,7 +118,7 @@ Response (JSON):
 
 ```bash
 # Search for products
-curl --location 'http://localhost:8000/search' \
+curl --location 'https://price-comparator-production-ea26.up.railway.app/search' \
 --header 'Content-Type: application/json' \
 --data '{
   "country": "India",
@@ -133,7 +133,7 @@ curl --location 'http://localhost:8000/search' \
 
 Watch the search functionality in action:
 
-![Search Demo](static/search_example.mov)
+![Search Demo](static/search_example.mp4)
 
 ---
 
