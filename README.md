@@ -5,6 +5,21 @@ A FastAPI-based application that compares product prices using Google Shopping d
 ## Features
 - Search for product prices across countries using Google Shopping (via Oxylabs API)
 - Filter and rank results for relevance using OpenAI's GPT models
+- **Optimized LRU caching** with O(1) operations and configurable expiration (default: 2 days)
+- Service-oriented architecture with clear separation of concerns
+- Comprehensive logging and monitoring endpoints
+
+## Architecture
+
+### Service Layer
+- **SearchService**: Handles product search operations with caching
+- **FilterService**: Manages result filtering using OpenAI
+- **CacheManager**: Optimized LRU cache with O(1) operations using OrderedDict
+
+### Utils Layer
+- **Config**: Pydantic-based configuration management
+- **Logging**: Centralized logging with file rotation
+- **Middleware**: Request logging
 
 ---
 
@@ -31,6 +46,13 @@ Create a `.env` file in the project root with the following content:
 OXYLABS_USERNAME=your_oxylabs_username
 OXYLABS_PASSWORD=your_oxylabs_password
 OPENAI_API_KEY=your_openai_api_key
+
+# Optional configuration
+LOG_LEVEL=INFO
+CACHE_EXPIRY_DAYS=1
+MAX_CACHE_SIZE=1000
+OPENAI_MODEL=gpt-4o-mini
+OPENAI_TEMPERATURE=0.7
 ```
 
 ### 3. Install dependencies
@@ -60,14 +82,17 @@ docker run --env-file .env -p 8000:8000 price-comparator
 
 ---
 
-## API Usage
+## API Endpoints
 
-### POST `/search`
+#### POST `/search`
+Search for products and return filtered results.
+
 Request body (JSON):
 ```json
 {
   "country": "United States",
-  "query": "iPhone 15"
+  "query": "iPhone 15",
+  "use_cache": true
 }
 ```
 
@@ -82,11 +107,33 @@ Response (JSON):
       "currency": "USD",
       "rating": "4.8",
       "reviews_count": 1200
-    },
-    ...
+    }
   ]
 }
 ```
+
+---
+
+## cURL Examples
+
+```bash
+# Search for products
+curl --location 'http://localhost:8000/search' \
+--header 'Content-Type: application/json' \
+--data '{
+  "country": "India",
+  "query": "Samsung s24",
+  "use_cache": true
+}'
+```
+
+---
+
+## Demo
+
+Watch the search functionality in action:
+
+![Search Demo](static/search_example.mov)
 
 ---
 
