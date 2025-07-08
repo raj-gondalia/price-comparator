@@ -66,7 +66,7 @@ docker run --env-file .env -p 8000:8000 price-comparator
 Request body (JSON):
 ```json
 {
-  "country": "US",
+  "country": "United States",
   "query": "iPhone 15"
 }
 ```
